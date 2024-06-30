@@ -16,7 +16,7 @@ class AuthController extends Controller
             'title' => 'Register'
         ];
 
-        return view('pages.register')->with($data);
+        return view('pages.auth.register')->with($data);
     }
 
     public function registerPost(Request $request)
@@ -50,7 +50,7 @@ class AuthController extends Controller
             'title' => 'Login'
         ];
 
-        return view('pages/login', $data);
+        return view('pages.auth.login', $data);
     }
 
     public function loginPost(Request $request)

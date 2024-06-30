@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Plant Project | {{ $title }}</title>
     @include('partials.base.head')
-    @yield('extra_css')
+    @yield('extraCss')
 </head>
 <body>
 
@@ -15,6 +15,6 @@
     </div>
 
     @include('partials.base.scripts')
-    @yield('extra_js')
+    @yield('extraJs')
 </body>
 </html>

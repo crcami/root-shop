@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RootShop | {{ $title }}</title>
     @include('partials.base.head')
-    @yield('extra_css')
+    @yield('extraCss')
 </head>
 <body>
 
     @include('partials.base.navbar')
-    
+
     <div class="content">
         <div class="container">
             @yield('content')
@@ -21,6 +21,6 @@
     @include('partials.base.footer')
 
     @include('partials.base.scripts')
-    @yield('extra_js')
+    @yield('extraJs')
 </body>
 </html>

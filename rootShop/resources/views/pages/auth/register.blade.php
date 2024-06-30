@@ -1,14 +1,11 @@
 @extends('layout.auth')
 
-@section('extra_css')
-@endsection
-
 @section('content')
     <div class="row justify-content-center mt-5">
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h1 class="card-title">Registrar</h1>
+                    <h1 class="card-title text-center title-login"><a class="active" href="{{ route('register') }}">Registrar</a> | <a class="select" href="{{ route('login') }}">Login</a></h1>
                 </div>
 
                 <div class="card-body">
@@ -42,7 +39,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('extra_js')
 @endsection

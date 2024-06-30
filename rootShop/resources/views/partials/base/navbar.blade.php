@@ -1,7 +1,10 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="light">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="{{ route('home') }}">ROOTSHOP</a>
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
+            <img src="{{ asset('media/images/root.gif') }}" alt="RootShop" width="64" height="64" class="d-inline-block">
+            <h1 class="brand-text d-inline-block mb-0">ROOTSHOP</h1>
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,15 +19,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Registrar Pedido</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('orders.index') }}">Registrar Pedido</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Produtos</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('products.index') }}">Produtos</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Clientes</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('clients.index') }}">Clientes</a>
                 </li>
             </ul>
 

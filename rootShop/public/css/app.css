@@ -1,10 +1,46 @@
-html, body {
+html,
+body {
     height: 100%;
 }
+
 body {
     display: flex;
     flex-direction: column;
 }
+
 .content {
     flex: 1;
+}
+
+.title-login {
+    color: #636b6f;
+}
+
+.title-login a {
+    color: #636b6f;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: ease-in-out 300ms all;
+}
+
+.title-login a.select:hover,
+.title-login a.select:focus {
+    color: #062b3d;
+    text-decoration: underline;
+}
+
+.title-login a.active {
+    color: #35a7e0;
+}
+
+.brand-text {
+    color: #636b6f;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
 }
