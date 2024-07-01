@@ -47,6 +47,8 @@ docker-compose up
 
 Após subir os contêineres, execute as migrações do banco de dados:
 
+*certifique-se de estar com seu terminal na pasta `rootShop`*
+
 ```sh
 docker-compose exec app php artisan migrate
 
@@ -64,4 +66,4 @@ docker-compose exec app php artisan db:seed
 
 ## Acessando a Aplicação
 
-Após seguir os passos acima, a aplicação estará disponível em http://localhost/8000.
+Após seguir os passos acima, a aplicação estará disponível em http://localhost:8000.
