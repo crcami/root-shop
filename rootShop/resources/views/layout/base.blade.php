@@ -8,13 +8,17 @@
     @include('partials.base.head')
     @yield('extraCss')
 </head>
-<body>
+<body class="base-body">
 
     @include('partials.base.navbar')
-
-    <div class="content">
+    
+    <div class="content mt-3">
         <div class="container">
-            @yield('content')
+            <div class="card">
+                <div class="card-body">
+                    @yield('content')
+                </div>
+            </div>
         </div>
     </div>
 

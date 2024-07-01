@@ -66,7 +66,7 @@ class OrderController extends Controller
 
         $order->update(['total_amount' => $totalAmount]);
 
-        return redirect()->route('orders.index')->with('success', 'Order created successfully.');
+        return redirect()->route('orders.index')->with('success', 'Pedido cadastrado com sucesso.');
     }
 
     /**
@@ -126,7 +126,7 @@ class OrderController extends Controller
 
         $order->update(['total_amount' => $totalAmount]);
 
-        return redirect()->route('orders.index')->with('success', 'Order updated successfully.');
+        return redirect()->route('orders.index')->with('success', 'Pedido atualizado com sucesso.');
     }
 
     /**
@@ -136,7 +136,7 @@ class OrderController extends Controller
     {
         $order->delete();
 
-        return redirect()->route('orders.index')->with('success', 'Order deleted successfully.');
+        return redirect()->route('orders.index')->with('success', 'Pedido excluso com sucesso.');
     }
 
     /**

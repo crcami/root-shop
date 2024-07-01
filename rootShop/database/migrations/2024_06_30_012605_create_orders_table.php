@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('order_number');
-            $table->foreignId('client_id')->constrained('clients')->onDelete('set null');
+            $table->foreignId('client_id')->nullable()->constrained('clients')->onDelete('set null');
             $table->enum('order_status', ['Open', 'Paid', 'Cancelled']);
             $table->decimal('total_amount', 15, 2);
             $table->decimal('discount', 15, 2)->nullable();

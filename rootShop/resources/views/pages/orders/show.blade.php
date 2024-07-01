@@ -2,31 +2,44 @@
 
 @section('content')
     <div class="container">
-        <h1>Order Details</h1>
-        <div class="mb-3">
-            <label for="client_id" class="form-label">Client</label>
-            <p>{{ $order->client->client_name }}</p>
-        </div>
-        <div class="mb-3">
-            <label for="order_status" class="form-label">Status</label>
-            <p>{{ $order->order_status }}</p>
-        </div>
-        <div class="mb-3">
-            <label for="total_amount" class="form-label">Total Amount</label>
-            <p>{{ $order->total_amount }}</p>
-        </div>
-        <div class="mb-3">
-            <label for="discount" class="form-label">Discount</label>
-            <p>{{ $order->discount }}</p>
-        </div>
-        <h3>Products</h3>
-        <table class="table">
+        <h1>Detalhes do Pedido</h1>
+
+        <table class="table table-striped table-hover">
+            <tbody>
+            <tr>
+                <td><strong>Pedido {{ $order->order_number }} - 
+                @if ($order->order_status == 'Open')
+                    ABERTO
+                @elseif ($order->order_status == 'Paid')
+                    PAGO
+                @else
+                    CANCELADO
+                @endif
+                </strong></td>
+            </tr>
+            <tr>
+                <td><strong>Nome do Cliente:</strong> {{ $order->client->client_name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Bruto:</strong> R${{ $order->total_amount }}</td>
+            </tr>
+            <tr>
+                <td><strong>Desconto:</strong> R${{ $order->discount }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total:</strong> R${{ $order->total_amount - $order->discount }}</td>
+            </tr>
+            </tbody>
+        </table>
+        
+        <h3>Produtos do Pedido</h3>
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Product Name</th>
-                    <th>Barcode</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
+                    <th scope="col">Nome do Produto</th>
+                    <th scope="col">Código de Barras</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Quantidade</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,12 +47,12 @@
                     <tr>
                         <td>{{ $orderProduct->product_name }}</td>
                         <td>{{ $orderProduct->barcode }}</td>
-                        <td>{{ $orderProduct->unit_price }}</td>
+                        <td>R${{ $orderProduct->unit_price }}</td>
                         <td>{{ $orderProduct->quantity }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <a href="{{ route('orders.index') }}" class="btn btn-primary">Back to Orders</a>
+        <a href="{{ route('orders.index') }}" class="btn btn-secondary">Retornar</a>
     </div>
 @endsection

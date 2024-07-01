@@ -1,66 +1,66 @@
-# Teste para candidatos à vaga de Desenvolvedor PHP
+# Desafio de PHP
 
-Olá caro desenvolvedor, nesse teste analisaremos seu conhecimento geral e inclusive velocidade de desenvolvimento. Abaixo explicaremos tudo o que será necessário.
+Este é um desafio que foi realizado para avaliar minhas habilidades Fullstack usando PHP.
 
-## Instruções
+## Pré-requisitos para Uso
 
-O desafio consiste em implementar uma aplicação Web utilizando o PHP, e um banco de dados relacional SQLite, MySQL ou Postgres, a partir de uma modelagem de dados inicial desnormalizada, que deve ser normalizada para a implementação da solução.
+Certifique-se de que você tem as seguintes ferramentas instaladas em seu sistema:
 
-Você vai criar uma aplicação de cadastro de pedidos de compra, a partir de uma modelagem inicial, com as seguintes funcionalidades:
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-- CRUD de clientes.
-- CRUD de produtos.
-- CRUD de pedidos de compra, com status (Em Aberto, Pago ou Cancelado).
-- Cada CRUD:
-  - deve ser filtrável e ordenável por qualquer campo, e possuir paginação de 20 itens.
-  - deve possuir formulários para criação e atualização de seus itens.
-  - deve permitir a deleção de qualquer item de sua lista.
-- Barra de navegação entre os CRUDs.
-- Links para os outros CRUDs nas listagens (Ex: link para o detalhe do cliente da compra na lista de pedidos de compra)
+## Passos para Configuração
 
-## Modelo de dados
+1. **Clone o Repositório**
 
-A modelagem inicial para a implementação solução é a seguinte:
+Faça um clone em sua máquina local.
 
-![](./images/modelo.png)
+```sh
+git clone https://github.com/crcami/testePHP.git
+cd testePHP
+```
 
-- Você deve alterar esta modelagem para que a mesma cumpra com as três primeiras formas normais.
+## Crie o Arquivo .env
 
-- Você pode criar a modelagem e implementar as validações necessárias da camada da forma que julgar melhor.
+Copie o arquivo .env.example para .env e ajuste as configurações conforme necessário.
 
-## Tecnologias a serem utilizadas
+```sh
+cp .env.example .env
+```
 
-Devem ser utilizadas as seguintes tecnologias:
+## Construa os Contêineres Docker
 
-- HTML
-- CSS
-- Javascript
-- PHP (Framework Opcional: Laravel, CodeIgnither)
-- Docker (construção do ambiente de desenvolvimento)
-- Mysql, Postgres ou SQLite
+Use o comando abaixo para construir os contêineres Docker:
 
-## Entrega
+```sh
+docker-compose build
+```
+## Suba os Contêineres Docker
 
-- Para iniciar o teste, faça um fork deste repositório; **Se você apenas clonar o repositório não vai conseguir fazer push.**
-- Crie uma branch com o seu nome completo;
-- Altere o arquivo teste-junior.md com as informações necessárias para executar o seu teste (comandos, migrations, seeds, etc);
-- Depois de finalizado, envie-nos o pull request;
+Use o comando abaixo para iniciar os contêineres Docker:
 
-## Bônus
+```sh
+docker-compose up
+```
+## Execute as Migrações
 
-- Implementar autenticação de usuário na aplicação.
-- Permitir que o usuário mude o número de itens por página.
-- Permitir deleção em massa de itens nos CRUDs.
-- Implementar aplicação de desconto em alguns pedidos de compra.
-- Implementar a camada de Front-End utilizando a biblioteca javascript Bootstrap e ser responsiva.
-- API Rest JSON para todos os CRUDS listados acima.
+Após subir os contêineres, execute as migrações do banco de dados:
 
-## O que iremos analisar
+```sh
+docker-compose exec app php artisan migrate
 
-- Organização do código;
-- Conhecimento de padrões (PSRs, design patterns, SOLID);
-- Separação de módulos e componentes;
-- Legibilidade;
-- Tratamento de erros;
+# Caso deseje realizar uma migração limpando o DB
+docker-compose exec app php artisan migrate:fresh
+```
 
-### Boa sorte!
+## Popule o Banco de Dados
+
+Opcionalmente, você pode popular o banco de dados com dados iniciais usando seeds:
+
+```sh
+docker-compose exec app php artisan db:seed
+```
+
+## Acessando a Aplicação
+
+Após seguir os passos acima, a aplicação estará disponível em http://localhost/8000.

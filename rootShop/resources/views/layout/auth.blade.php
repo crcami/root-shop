@@ -8,7 +8,7 @@
     @include('partials.base.head')
     @yield('extraCss')
 </head>
-<body>
+<body class="auth-body">
 
     <div class="container">
         @yield('content')

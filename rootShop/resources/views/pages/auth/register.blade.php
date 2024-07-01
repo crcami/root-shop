@@ -1,11 +1,13 @@
 @extends('layout.auth')
 
 @section('content')
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center align-items-center vh-100">
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h1 class="card-title text-center title-login"><a class="active" href="{{ route('register') }}">Registrar</a> | <a class="select" href="{{ route('login') }}">Login</a></h1>
+                    <h1 class="card-title text-center title-login"><a class="active"
+                            href="{{ route('register') }}">Registrar</a> | <a class="select"
+                            href="{{ route('login') }}">Login</a></h1>
                 </div>
 
                 <div class="card-body">

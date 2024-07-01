@@ -19,7 +19,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('orders.index') }}">Registrar Pedido</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('orders.index') }}">Pedidos</a>
                 </li>
 
                 <li class="nav-item">
