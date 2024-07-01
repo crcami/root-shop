@@ -18,6 +18,7 @@ Faça um clone em sua máquina local.
 ```sh
 git clone https://github.com/crcami/testePHP.git
 cd testePHP
+cd rootShop
 ```
 
 ## Crie o Arquivo .env
