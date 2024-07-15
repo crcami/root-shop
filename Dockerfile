@@ -1,11 +1,12 @@
 # Use an official PHP 8.2 image
 FROM php:8.2-fpm
 
-# Set working directory
+# Create and set working directory
+RUN useradd -m -u 1000 appuser
 WORKDIR /var/www
 
 # Copy composer.lock and composer.json
-COPY composer.lock composer.json ./
+COPY --chown=appuser:appuser composer.lock composer.json ./
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -21,16 +22,21 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql
+# Copy the rest of the application code
+COPY --chown=appuser:appuser . .
 
-# Expose port 9000 and start php-fpm server
+# Set appropriate permissions
+RUN chown -R appuser:appuser /var/www
+
+# Switch to non-root user
+USER appuser
+
+# Expose port 9000
 EXPOSE 9000
 
-# Adicione o script entrypoint
+# Add and execute the entrypoint script
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Use o entrypoint para iniciar o container
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["php-fpm"]

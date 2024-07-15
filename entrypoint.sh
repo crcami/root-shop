@@ -1,10 +1,13 @@
 #!/bin/sh
 
-# Execute o Composer Install
-composer install
+# Set COMPOSER_ALLOW_SUPERUSER environment variable
+export COMPOSER_ALLOW_SUPERUSER=1
 
-# Execute as migrações
-php artisan migrate:fresh
+# Run Composer Install
+composer install --no-interaction --optimize-autoloader --no-dev
+
+# Run database migrations
+php artisan migrate --force
 
 # Popule o banco de dados
 php artisan db:seed
