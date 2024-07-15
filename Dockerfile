@@ -1,42 +1,55 @@
-# Use an official PHP 8.2 image
-FROM php:8.2-fpm
+# Use the official PHP image as a parent image
+FROM php:8.1-cli
 
-# Create and set working directory
-RUN useradd -m -u 1000 appuser
+# Set the working directory
 WORKDIR /var/www
 
-# Copy composer.lock and composer.json
-COPY --chown=appuser:appuser composer.lock composer.json ./
-
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
+    git \
+    curl \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd pdo_mysql
+    unzip
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install bcmath
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-# Copy the rest of the application code
-COPY --chown=appuser:appuser . .
+# Add user for the application
+RUN groupadd -g 1000 appuser && \
+    useradd -u 1000 -ms /bin/bash -g appuser appuser
 
-# Set appropriate permissions
-RUN chown -R appuser:appuser /var/www
-
-# Switch to non-root user
+# Change current user to appuser
 USER appuser
 
-# Expose port 9000
-EXPOSE 9000
+# Copy existing application directory contents
+COPY --chown=appuser:appuser . .
 
+# Change ownership of the application directory
+RUN chown -R appuser:appuser /var/www
+
+# Switch back to root to set permissions
+USER root
 # Add and execute the entrypoint script
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
+# Switch back to appuser
+USER appuser
 
+# Set the entrypoint script
 ENTRYPOINT ["entrypoint.sh"]
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
 CMD ["php-fpm"]
