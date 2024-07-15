@@ -26,4 +26,11 @@ RUN docker-php-ext-install pdo_mysql
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
+
+# Adicione o script entrypoint
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Use o entrypoint para iniciar o container
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["php-fpm"]
