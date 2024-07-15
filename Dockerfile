@@ -40,9 +40,9 @@ RUN chown -R appuser:appuser /var/www
 # Switch to the non-root user
 USER appuser
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-
 # Use the entrypoint to start the container
 ENTRYPOINT ["entrypoint.sh"]
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
 CMD ["php-fpm"]
