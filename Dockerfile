@@ -1,55 +1,36 @@
-# Use the official PHP image as a parent image
-FROM php:8.1-cli
+# Use an official PHP 8.2 image
+FROM php:8.2-fpm
 
-# Set the working directory
+# Set working directory
 WORKDIR /var/www
 
-# Install system dependencies
+# Copy composer.lock and composer.json
+COPY composer.lock composer.json ./
+
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
+    build-essential \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     zip \
-    unzip
-
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install gd
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-install bcmath
+    unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd pdo_mysql
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Add user for the application
-RUN groupadd -g 1000 appuser && \
-    useradd -u 1000 -ms /bin/bash -g appuser appuser
-
-# Change current user to appuser
-USER appuser
-
-# Copy existing application directory contents
-COPY --chown=appuser:appuser . .
-
-# Change ownership of the application directory
-RUN chown -R appuser:appuser /var/www
-
-# Switch back to root to set permissions
-USER root
-# Add and execute the entrypoint script
-COPY entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/entrypoint.sh
-# Switch back to appuser
-USER appuser
-
-# Set the entrypoint script
-ENTRYPOINT ["entrypoint.sh"]
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
+
+# Adicione o script entrypoint
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Use o entrypoint para iniciar o container
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["php-fpm"]
