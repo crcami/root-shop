@@ -1,13 +1,16 @@
 #!/bin/sh
 
-# Execute o Composer Install
-composer install
+# Ensure we are in the correct directory
+cd /var/www
 
-# Execute as migrações
-php artisan migrate:fresh
+# Execute Composer Install
+composer install --no-interaction --optimize-autoloader
 
-# Popule o banco de dados
-php artisan db:seed
+# Execute migrations if the database is empty
+php artisan migrate --force
 
-# Inicie o php-fpm
+# Populate the database if needed
+php artisan db:seed --force
+
+# Start php-fpm
 php-fpm
