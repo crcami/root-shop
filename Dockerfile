@@ -44,5 +44,5 @@ USER appuser
 ENTRYPOINT ["entrypoint.sh"]
 
 # Expose port 9000 and start php-fpm server
-EXPOSE 9000
+EXPOSE 1000
 CMD ["php-fpm"]
