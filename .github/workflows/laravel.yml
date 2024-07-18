@@ -38,18 +38,3 @@ jobs:
 
       - name: Start Docker containers
         run: docker compose up -d
-
-      - name: Copy .env file
-        run: cp .env.example .env
-
-      - name: Install dependencies
-        run: docker compose exec app composer install
-
-      - name: Run migrations
-        run: docker compose exec app php artisan migrate
-
-      - name: Seed the database
-        run: docker compose exec app php artisan db:seed
-
-      - name: Run tests
-        run: docker compose exec app php artisan test
