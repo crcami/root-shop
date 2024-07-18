@@ -14,3 +14,11 @@ php artisan migrate --force
 # Populate the database if needed
 echo "Running seeds..."
 php artisan db:seed --force
+
+# Ensure the storage and cache directories are writable
+echo "Setting permissions for storage and cache..."
+chown -R appuser:appuser /var/www/storage /var/www/bootstrap/cache
+
+# Start PHP-FPM
+echo "Starting PHP-FPM..."
+exec php-fpm
