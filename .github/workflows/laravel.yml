@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:8.0
         ports:
-          - 3307:3306
+          - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: root_shop
