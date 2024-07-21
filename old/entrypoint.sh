@@ -3,9 +3,16 @@
 # Ensure we are in the correct directory
 cd /var/www
 
-# Execute Composer Install
-echo "Running composer install..."
-composer install --no-interaction --optimize-autoloader
+#!/usr/bin/env bash
+echo "Running composer"
+composer global require hirak/prestissimo
+composer install --no-dev --working-dir=/var/www/html
+
+echo "Caching config..."
+php artisan config:cache
+
+echo "Caching routes..."
+php artisan route:cache
 
 # Execute migrations if the database is empty
 echo "Running migrations..."
