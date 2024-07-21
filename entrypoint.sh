@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
-echo "Running composer"
-composer global require hirak/prestissimo
-composer install --no-dev --working-dir=/var/www/html
+set -e
+
+# Ensure we are in the correct directory
+cd /var/www/html
+
+echo "Running composer install"
+composer install --no-dev --prefer-dist --optimize-autoloader
 
 echo "Caching config..."
 php artisan config:cache
@@ -14,3 +18,6 @@ php artisan migrate --force
 
 echo "Running seeds..."
 php artisan db:seed --force
+
+# Start the php-fpm server
+exec "$@"
