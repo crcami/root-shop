@@ -1,48 +1,20 @@
-# Use an official PHP 8.2 image
-FROM php:8.2-fpm
+FROM richarvey/nginx-php-fpm:3.1.6
 
-# Set working directory
-WORKDIR /var/www
-
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json ./
-
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd pdo_mysql
-
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Copy the rest of the application files
 COPY . .
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
-# Add the entrypoint script
-COPY entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
 
-# Add a non-root user
-RUN groupadd -g 1000 appuser && useradd -u 1000 -ms /bin/bash -g appuser appuser
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# Set permissions for the application directory
-RUN chown -R appuser:appuser /var/www
-
-# Switch to the non-root user
-USER appuser
-
-# Use the entrypoint to start the container
-ENTRYPOINT ["entrypoint.sh"]
-
-# Expose port 9000 and start php-fpm server
-EXPOSE 1000
-CMD ["php-fpm"]
+CMD ["/start.sh"]
