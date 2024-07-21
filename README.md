@@ -51,6 +51,32 @@ Use o comando abaixo para iniciar os contêineres Docker:
 docker-compose up
 ```
 
+## Instale as Dependências
+
+*certifique-se de estar com seu terminal na pasta `root-shop`*
+```sh
+docker-compose exec app composer install
+```
+
+## Execute as Migrações
+
+Após subir os contêineres, execute as migrações do banco de dados:
+
+
+```sh
+docker-compose exec app php artisan migrate
+
+# Caso deseje realizar uma migração limpando o DB
+docker-compose exec app php artisan migrate:fresh
+```
+
+## Popule o Banco de Dados
+
+Opcionalmente, você pode popular o banco de dados com dados iniciais usando seeds:
+
+```sh
+docker-compose exec app php artisan db:seed
+```
 
 ## Acessando a Aplicação
 
