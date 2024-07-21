@@ -1,10 +1,13 @@
 # Root Shop
 
+
 Este é um projeto Fullstack usando PHP, onde utilizei as seguintes tecnologias para criar uma loja totalmente funcional:
 - HTML, CSS e JS
 - Bootstrap, Jquery e DataTable
 - PHP e Laravel
 - Docker
+  
+![Loja Root Shop](others/root-shop.png)
 
 ## Pré-requisitos para Uso
 
@@ -26,10 +29,10 @@ cd root-shop
 
 ## Crie o Arquivo .env
 
-Copie o arquivo .env.example para .env e ajuste as configurações conforme necessário.
+Copie o arquivo Dockerfile, docker-compose e o .env-example para a raiz, sendo o .env ajustado para as suas configurações conforme necessário.
 
 ```sh
-cp .env.example .env
+cp -f others/Dockerfile Dockerfile && cp -f others/docker-compose.yml docker-compose.yml && cp others/.env.example .env
 ```
 
 ## Construa os Contêineres Docker
@@ -39,6 +42,7 @@ Use o comando abaixo para construir os contêineres Docker:
 ```sh
 docker-compose build
 ```
+
 ## Suba os Contêineres Docker
 
 Use o comando abaixo para iniciar os contêineres Docker:
@@ -46,32 +50,7 @@ Use o comando abaixo para iniciar os contêineres Docker:
 ```sh
 docker-compose up
 ```
-## Instale as Dependências
 
-*certifique-se de estar com seu terminal na pasta `root-shop`*
-```sh
-docker-compose exec app composer install
-```
-
-## Execute as Migrações
-
-Após subir os contêineres, execute as migrações do banco de dados:
-
-
-```sh
-docker-compose exec app php artisan migrate
-
-# Caso deseje realizar uma migração limpando o DB
-docker-compose exec app php artisan migrate:fresh
-```
-
-## Popule o Banco de Dados
-
-Opcionalmente, você pode popular o banco de dados com dados iniciais usando seeds:
-
-```sh
-docker-compose exec app php artisan db:seed
-```
 
 ## Acessando a Aplicação
 
