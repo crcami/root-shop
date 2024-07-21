@@ -32,7 +32,7 @@ cd root-shop
 Copie o arquivo Dockerfile, docker-compose e o .env-example para a raiz, sendo o .env ajustado para as suas configurações conforme necessário.
 
 ```sh
-cp -f others/Dockerfile Dockerfile && cp -f others/docker-compose.yml docker-compose.yml && cp others/.env.example .env
+cp -f others/Dockerfile Dockerfile && cp -f others/docker-compose.yml docker-compose.yml && cp -f others/AppServiceProvider.php app/Providers/AppServiceProvider.php && cp others/.env.example .env
 ```
 
 ## Construa os Contêineres Docker
